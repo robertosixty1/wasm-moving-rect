@@ -1,6 +1,7 @@
-typedef long Pixel;
+typedef unsigned int uint32_t;
+typedef uint32_t Pixel;
 
-Pixel rgba(long r, long g, long b, long a)
+Pixel rgba(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
 {
     return (a << (3 * 8)) |
            (b << (2 * 8)) |
@@ -17,17 +18,17 @@ Pixel* get_display(void)
     return display;
 }
 
-long get_display_width(void)
+uint32_t get_display_width(void)
 {
     return WIDTH;
 }
 
-long get_display_height(void)
+uint32_t get_display_height(void)
 {
     return HEIGHT;
 }
 
-long max(long a, long b)
+uint32_t max(uint32_t a, uint32_t b)
 {
     if (a > b) {
         return a;
@@ -36,7 +37,7 @@ long max(long a, long b)
     }
 }
 
-long min(long a, long b)
+uint32_t min(uint32_t a, uint32_t b)
 {
     if (a < b) {
         return a;
@@ -45,30 +46,30 @@ long min(long a, long b)
     }
 }
 
-long clamp(long x, long low, long high)
+uint32_t clamp(uint32_t x, uint32_t low, uint32_t high)
 {
     return min(max(low, x), high);
 }
 
-void fill_rect(long x0, long y0, long w, long h, Pixel pixel)
+void fill_rect(uint32_t x0, uint32_t y0, uint32_t w, uint32_t h, Pixel pixel)
 {
-    long x1 = clamp(x0, 0, (WIDTH - 1));
-    long x2 = clamp(x0 + w - 1, 0, (WIDTH - 1));
-    long y1 = clamp(y0, 0, (HEIGHT - 1));
-    long y2 = clamp(y0 + h - 1, 0, (HEIGHT - 1));
+    uint32_t x1 = clamp(x0, 0, (WIDTH - 1));
+    uint32_t x2 = clamp(x0 + w - 1, 0, (WIDTH - 1));
+    uint32_t y1 = clamp(y0, 0, (HEIGHT - 1));
+    uint32_t y2 = clamp(y0 + h - 1, 0, (HEIGHT - 1));
 
-    for (int y = y1; y <= y2; ++y) {
-        for (int x = x1; x <= x2; ++x) {
+    for (uint32_t y = y1; y <= y2; ++y) {
+        for (uint32_t x = x1; x <= x2; ++x) {
             display[y*WIDTH+x] = pixel;
         }
     }
 }
 
-long x = 0;
-long y = 0;
+uint32_t x = 0;
+uint32_t y = 0;
 #define DEFAULT_VELOCITY 2
-long vel_x = DEFAULT_VELOCITY;
-long vel_y = DEFAULT_VELOCITY;
+uint32_t vel_x = DEFAULT_VELOCITY;
+uint32_t vel_y = DEFAULT_VELOCITY;
 
 #define RECT_WIDTH  100
 #define RECT_HEIGHT 100
