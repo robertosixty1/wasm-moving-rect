@@ -1,7 +1,7 @@
-typedef unsigned int uint32_t;
-typedef uint32_t Pixel;
+typedef signed int int32_t;
+typedef int32_t Pixel;
 
-Pixel rgba(uint32_t r, uint32_t g, uint32_t b, uint32_t a)
+Pixel rgba(int32_t r, int32_t g, int32_t b, int32_t a)
 {
     return (a << (3 * 8)) |
            (b << (2 * 8)) |
@@ -18,17 +18,17 @@ Pixel* get_display(void)
     return display;
 }
 
-uint32_t get_display_width(void)
+int32_t get_display_width(void)
 {
     return WIDTH;
 }
 
-uint32_t get_display_height(void)
+int32_t get_display_height(void)
 {
     return HEIGHT;
 }
 
-uint32_t max(uint32_t a, uint32_t b)
+int32_t max(int32_t a, int32_t b)
 {
     if (a > b) {
         return a;
@@ -37,7 +37,7 @@ uint32_t max(uint32_t a, uint32_t b)
     }
 }
 
-uint32_t min(uint32_t a, uint32_t b)
+int32_t min(int32_t a, int32_t b)
 {
     if (a < b) {
         return a;
@@ -46,30 +46,36 @@ uint32_t min(uint32_t a, uint32_t b)
     }
 }
 
-uint32_t clamp(uint32_t x, uint32_t low, uint32_t high)
+int32_t clamp(int32_t x, int32_t low, int32_t high)
 {
     return min(max(low, x), high);
 }
 
-void fill_rect(uint32_t x0, uint32_t y0, uint32_t w, uint32_t h, Pixel pixel)
+void fill_rect(int32_t x0, int32_t y0, int32_t w, int32_t h, Pixel pixel)
 {
-    uint32_t x1 = clamp(x0, 0, (WIDTH - 1));
-    uint32_t x2 = clamp(x0 + w - 1, 0, (WIDTH - 1));
-    uint32_t y1 = clamp(y0, 0, (HEIGHT - 1));
-    uint32_t y2 = clamp(y0 + h - 1, 0, (HEIGHT - 1));
+    int32_t
+ x1 = clamp(x0, 0, (WIDTH - 1));
+    int32_t
+ x2 = clamp(x0 + w - 1, 0, (WIDTH - 1));
+    int32_t
+ y1 = clamp(y0, 0, (HEIGHT - 1));
+    int32_t
+ y2 = clamp(y0 + h - 1, 0, (HEIGHT - 1));
 
-    for (uint32_t y = y1; y <= y2; ++y) {
-        for (uint32_t x = x1; x <= x2; ++x) {
+    for (int32_t
+ y = y1; y <= y2; ++y) {
+        for (int32_t
+     x = x1; x <= x2; ++x) {
             display[y*WIDTH+x] = pixel;
         }
     }
 }
 
-uint32_t x = 0;
-uint32_t y = 0;
+int32_t x = 0;
+int32_t y = 0;
 #define DEFAULT_VELOCITY 2
-uint32_t vel_x = DEFAULT_VELOCITY;
-uint32_t vel_y = DEFAULT_VELOCITY;
+int32_t vel_x = DEFAULT_VELOCITY;
+int32_t vel_y = DEFAULT_VELOCITY;
 
 #define RECT_WIDTH  100
 #define RECT_HEIGHT 100
